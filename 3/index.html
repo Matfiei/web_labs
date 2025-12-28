@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Моя вебсторінка</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Вітаю у світі WWW!</h1>
+      <nav>
+        <a href="https://example.com">Головна</a>
+        <button id="theme-toggle-button">Змінити тему</button>
+        <p class="ml-auto inline" id="username"></p>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Про цей сайт</h2>
+        <span>
+          Тут я експериментую з HTML та CSS і вчуся створювати прості
+          вебсторінки.
+        </span>
+        <a href="https://example.com">Корисні ресурси</a>
+      </section>
+
+      <section>
+        <h2>Що я вивчаю</h2>
+        <p>
+          Зараз я знайомлюся з базовою структурою HTML, стилями CSS та
+          адаптивною версткою.
+        </p>
+        <a href="https://example.com">Мій прогрес</a>
+      </section>
+
+      <section>
+        <h2>Мета</h2>
+        <p>Навчитися створювати прості сайти без зайвої складності.</p>
+        <a href="https://www.w3schools.com/">Навчальні матеріали</a>
+      </section>
+
+      <section>
+        <h2>Ваше ім'я:</h2>
+        <input type="text" placeholder="Ім'я" id="greeting-input" />
+      </section>
+
+      <section>
+        <h2>Залишити коментар</h2>
+
+        <form class="comments-form">
+          <input type="text" placeholder="Ім'я" id="comment-author" />
+
+          <input type="text" placeholder="Коментар" id="comment-content" />
+
+          <button type="submit">Надіслати</button>
+        </form>
+
+        <h2>Коментарі</h2>
+        <div class="comments-list"></div>
+      </section>
+
+      <section>
+        <h2>Динамічний HTML</h2>
+        <button id="dynamic-html-trigger">Завантажити дані</button>
+        <div id="dynamic-html-result"></div>
+      </section>
+
+      <section>
+        <h2>Динамічний JSON</h2>
+        <button id="dynamic-json-trigger">Завантажити дані</button>
+        <div id="dynamic-json-result"></div>
+      </section>
+    </main>
+  </body>
+
+  <!-- Theme toggle -->
+  <script>
+    // consts
+    const themeButton = document.querySelector("#theme-toggle-button");
+
+    // utils
+    function setTheme(theme) {
+      if (typeof theme === "string") {
+        const body = document.querySelector("body");
+
+        body.classList.remove("light-theme", "dark-theme");
+        body.classList.add(theme);
+      }
+    }
+
+    // load local theme if exist
+    if (localStorage.getItem("theme") === "dark-theme") {
+      setTheme("dark-theme");
+    } else {
+      setTheme("light-theme");
+    }
+
+    // handle theme change
+    themeButton.addEventListener("click", () => {
+      const isDarkTheme = document
+        .querySelector("body")
+        .classList.contains("dark-theme");
+
+      if (isDarkTheme) {
+        setTheme("light-theme");
+        localStorage.setItem("theme", "light-theme");
+      } else {
+        setTheme("dark-theme");
+        localStorage.setItem("theme", "dark-theme");
+      }
+    });
+  </script>
+
+  <!-- Reactive greeting -->
+  <script>
+    // consts
+    const input = document.querySelector("#greeting-input");
+    const usernameContainer = document.querySelector("#username");
+
+    // hangle username update
+    input.addEventListener("input", (event) => {
+      const value = event.target.value.trim();
+      usernameContainer.textContent = value ? `Привіт ${value}!` : "";
+    });
+  </script>
+
+  <!-- Comments -->
+  <script>
+    // consts
+    const form = document.querySelector(".comments-form");
+    const localComments = JSON.parse(localStorage.getItem("comments")) ?? [];
+
+    // utils
+    function createComment(author, content, listSelector = ".comments-list") {
+      const commentsList = document.querySelector(listSelector);
+
+      // create empty comment
+      const comment = document.createElement("div");
+      comment.classList.add("comment");
+
+      // author element
+      const commentAuthor = document.createElement("h3");
+      commentAuthor.textContent = author;
+
+      // content element
+      const commentContent = document.createElement("p");
+      commentContent.textContent = content;
+
+      // add author and content to comment
+      comment.appendChild(commentAuthor);
+      comment.appendChild(commentContent);
+
+      // add comment to list
+      commentsList.appendChild(comment);
+    }
+
+    // initial comments loading
+    if (localComments.length) {
+      localComments.forEach((comment) => {
+        createComment(comment.author, comment.content);
+      });
+    }
+
+    // handle send comment
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      // get form data
+      const author = document.querySelector("#comment-author").value.trim();
+      const content = document.querySelector("#comment-content").value.trim();
+
+      if (author && content) {
+        createComment(author, content);
+
+        // save comments
+        localComments.push({
+          author,
+          content,
+        });
+
+        localStorage.setItem("comments", JSON.stringify(localComments));
+
+        // clear form
+        form.reset();
+      }
+    });
+  </script>
+
+  <!-- Dynamic HTML -->
+  <script>
+    // consts
+    const trigger = document.querySelector("#dynamic-html-trigger");
+    const resultContainer = document.querySelector("#dynamic-html-result");
+
+    // handle button click
+    trigger.addEventListener("click", () => {
+      resultContainer.innerHTML = "Завантаження";
+
+      // fetch data
+      fetch("https://web2025-test-data.ikto.net/autumn-note.html")
+        .then((res) => res.text())
+        .then((data) => {
+          // load result
+          resultContainer.innerHTML = data;
+        })
+        .catch((err) => {
+          // error handling
+          resultContainer.innerHTML = "Не вдалося завантажити дані";
+        });
+    });
+  </script>
+
+  <!-- Dynamic JSON -->
+  <script>
+    // consts
+    const jsonTrigger = document.querySelector("#dynamic-json-trigger");
+    const jsonResultContainer = document.querySelector("#dynamic-json-result");
+
+    // handle button click
+    jsonTrigger.addEventListener("click", async () => {
+      jsonResultContainer.innerHTML = "Завантаження";
+
+      // fetch data
+
+      try {
+        const res = await fetch(
+          "https://web2025-test-data.ikto.net/comments.json"
+        );
+
+        const data = await res.json();
+        console.log(data);
+
+        data.forEach((el) =>
+          createComment(el.name, el.comment, "#dynamic-json-result")
+        );
+      } catch (error) {
+        jsonResultContainer.innerHTML = "Не вдалося завантажити дані";
+      }
+    });
+  </script>
+</html>
