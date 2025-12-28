@@ -1,0 +1,77 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: linear-gradient(135deg, hsl(210, 40%, 96%), hsl(210, 40%, 90%));
+  color: hsl(210, 30%, 20%);
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    text-align: start;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+a {
+  font-weight: 600;
+  color: black;
+  transition: 0.5s;
+  opacity: 0.7;
+}
+
+a:hover {
+  opacity: 1;
+}
+
+button {
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.6em 1.2em;
+  border-radius: 0.4em;
+  background-color: hsl(210, 70%, 50%);
+  border: 0;
+  color: hsl(0, 0%, 100%);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: hsl(210, 70%, 40%);
+  transform: translateY(-0.1em);
+}
+
+a:active {
+  transform: translateY(0);
+}
