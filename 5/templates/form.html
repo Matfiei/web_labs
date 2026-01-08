@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Форма (ЛР5)</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 720px; margin: 30px auto; }
+    .field { margin-bottom: 14px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px; box-sizing: border-box; }
+    .error { color: #b00020; margin-top: 6px; font-size: 0.95em; }
+    .errors-box { border: 1px solid #b00020; padding: 12px; margin-bottom: 16px; }
+    button { padding: 10px 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Форма введення даних</h1>
+
+  {% if errors %}
+    <div class="errors-box">
+      <b>Знайдено помилки:</b>
+      <ul>
+        {% for field, msg in errors.items() %}
+          <li>{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <form method="post" action="{{ url_for('form') }}">
+    <div class="field">
+      <label for="full_name">ПІБ</label>
+      <input type="text" id="full_name" name="full_name" value="{{ data.full_name }}">
+      {% if errors.get('full_name') %}<div class="error">{{ errors.get('full_name') }}</div>{% endif %}
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" value="{{ data.email }}" placeholder="name@example.com">
+      {% if errors.get('email') %}<div class="error">{{ errors.get('email') }}</div>{% endif %}
+    </div>
+
+    <div class="field">
+      <label for="age">Вік</label>
+      <input type="text" id="age" name="age" value="{{ data.age }}" placeholder="20">
+      {% if errors.get('age') %}<div class="error">{{ errors.get('age') }}</div>{% endif %}
+    </div>
+
+    <div class="field">
+      <label for="city">Місто</label>
+      <input type="text" id="city" name="city" value="{{ data.city }}">
+      {% if errors.get('city') %}<div class="error">{{ errors.get('city') }}</div>{% endif %}
+    </div>
+
+    <button type="submit">Надіслати</button>
+  </form>
+</body>
+</html>
