@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>ECTS по дисциплінах</title>
+</head>
+<body>
+  <h1>Кількість оцінок за шкалою ECTS по дисциплінах</h1>
+
+  <p><a href="/">Головна</a></p>
+
+  <table border="1" cellpadding="6">
+    <tr>
+      <th>Дисципліна</th>
+      <th>Семестр</th>
+      <th>ECTS</th>
+      <th>Кількість</th>
+    </tr>
+
+    {% for r in rows %}
+    <tr>
+      <td>{{ r["title"] }}</td>
+      <td>{{ r["semester"] }}</td>
+      <td>{{ r["ects"] }}</td>
+      <td>{{ r["cnt"] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

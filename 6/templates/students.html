@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Студенти</title>
+</head>
+<body>
+  <h1>Студенти</h1>
+
+  <p><a href="/">Головна</a></p>
+
+  <ul>
+    {% for s in students %}
+      <li>
+        {{ s["name"] }}
+        — <a href="/students/{{ s['id'] }}/points">оцінки</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

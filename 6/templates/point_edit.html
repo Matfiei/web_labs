@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Редагувати оцінку</title>
+</head>
+<body>
+  <h1>Редагувати оцінку</h1>
+
+  <p><a href="/points">Назад до всіх оцінок</a></p>
+
+  <form method="post">
+    <p>
+      <label>Студент:</label><br>
+      <select name="student_id">
+        {% for s in students %}
+          <option value="{{ s['id'] }}"
+            {% if s['id'] == point['id_student'] %}selected{% endif %}>
+            {{ s["name"] }}
+          </option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p>
+      <label>Дисципліна:</label><br>
+      <select name="course_id">
+        {% for c in courses %}
+          <option value="{{ c['id'] }}"
+            {% if c['id'] == point['id_course'] %}selected{% endif %}>
+            {{ c["title"] }} (семестр {{ c["semester"] }})
+          </option>
+        {% endfor %}
+      </select>
+    </p>
+
+    <p>
+      <label>Оцінка:</label><br>
+      <input type="number" name="value" min="0" max="100" value="{{ point['value'] }}">
+    </p>
+
+    <button type="submit">Зберегти зміни</button>
+  </form>
+</body>
+</html>

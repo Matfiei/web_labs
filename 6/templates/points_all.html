@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Усі оцінки</title>
+</head>
+<body>
+  <h1>Усі оцінки</h1>
+<p><a href="/points/new">➕ Додати оцінку</a></p>
+
+  <p>
+    <a href="/">Головна</a> |
+    <a href="/db-test">Перевірка БД</a>
+  </p>
+
+  <table border="1" cellpadding="6">
+    <tr>
+  <th>ID</th>
+  <th>Студент</th>
+  <th>Дисципліна</th>
+  <th>Семестр</th>
+  <th>Оцінка</th>
+  <th>Дії</th>
+</tr>
+
+
+    {% for r in rows %}
+   <tr>
+  <td>{{ r["id"] }}</td>
+  <td>{{ r["student_name"] }}</td>
+  <td>{{ r["course_title"] }}</td>
+  <td>{{ r["semester"] }}</td>
+  <td>{{ r["value"] }}</td>
+  <td>
+  <a href="/points/{{ r['id'] }}/edit">✏️ Редагувати</a>
+  |
+  <a href="/points/{{ r['id'] }}/delete">🗑 Видалити</a>
+</td>
+
+</tr>
+
+    {% endfor %}
+  </table>
+</body>
+</html>

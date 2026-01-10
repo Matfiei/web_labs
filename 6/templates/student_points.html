@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Оцінки студента</title>
+</head>
+<body>
+  <h1>Оцінки студента: {{ student["name"] }}</h1>
+
+  <p><a href="/students">Назад до студентів</a></p>
+
+  <table border="1" cellpadding="6">
+    <tr>
+      <th>ID</th>
+      <th>Дисципліна</th>
+      <th>Семестр</th>
+      <th>Оцінка</th>
+    </tr>
+
+    {% for r in rows %}
+    <tr>
+      <td>{{ r["id"] }}</td>
+      <td>{{ r["course_title"] }}</td>
+      <td>{{ r["semester"] }}</td>
+      <td>{{ r["value"] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

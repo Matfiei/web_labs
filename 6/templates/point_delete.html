@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Видалити оцінку</title>
+</head>
+<body>
+  <h1>Підтвердження видалення</h1>
+
+  <p>Ти точно хочеш видалити цю оцінку?</p>
+
+  <ul>
+    <li><b>Студент:</b> {{ point["student_name"] }}</li>
+    <li><b>Дисципліна:</b> {{ point["course_title"] }}</li>
+    <li><b>Семестр:</b> {{ point["semester"] }}</li>
+    <li><b>Оцінка:</b> {{ point["value"] }}</li>
+  </ul>
+
+  <form method="post">
+    <button type="submit">Так, видалити</button>
+    <a href="/points">Скасувати</a>
+  </form>
+</body>
+</html>
